@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap3 com rescap">
+  <Identity
+    Name="SystemMonitorWidget.Provider"
+    Publisher="CN=System Monitor Widget Publisher"
+    Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>System Monitor Widget</DisplayName>
+    <PublisherDisplayName>System Monitor Widget</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.28000.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="SystemMonitorWidget" Executable="SystemMonitor.WidgetProvider\SystemMonitor.WidgetProvider.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="System Monitor Widget"
+        Description="A compact live view of CPU, memory, GPU, and network activity."
+        Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png"
+        BackgroundColor="#17152A"
+        AppListEntry="none" />
+      <Extensions>
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <com:ExeServer Executable="SystemMonitor.WidgetProvider\SystemMonitor.WidgetProvider.exe" DisplayName="System Monitor Widget">
+              <com:Class Id="A12D9783-0A6D-48CF-B2D7-6B75135AA2F7" DisplayName="System Monitor Widget Provider" />
+            </com:ExeServer>
+          </com:ComServer>
+        </com:Extension>
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="com.microsoft.windows.widgets" DisplayName="System Monitor Widget" Id="SystemMonitorWidgetProvider" PublicFolder="Public">
+            <uap3:Properties>
+              <WidgetProvider>
+                <ProviderIcons>
+                  <Icon Path="ProviderAssets\SystemMonitor.png" />
+                </ProviderIcons>
+                <Activation>
+                  <CreateInstance ClassId="A12D9783-0A6D-48CF-B2D7-6B75135AA2F7" />
+                </Activation>
+                <Definitions>
+                  <Definition Id="SystemMonitor_Widget" DisplayName="System Monitor" Description="Live CPU, memory, GPU, and network usage." AllowMultiple="true">
+                    <Capabilities>
+                      <Capability><Size Name="medium" /></Capability>
+                      <Capability><Size Name="large" /></Capability>
+                    </Capabilities>
+                    <ThemeResources>
+                      <Icons>
+                        <Icon Path="ProviderAssets\SystemMonitor.png" />
+                      </Icons>
+                      <Screenshots>
+                        <Screenshot Path="ProviderAssets\SystemMonitorPreview.png" DisplayAltText="System Monitor widget showing processor, memory, graphics, and network activity." />
+                      </Screenshots>
+                    </ThemeResources>
+                  </Definition>
+                </Definitions>
+              </WidgetProvider>
+            </uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+</Package>
